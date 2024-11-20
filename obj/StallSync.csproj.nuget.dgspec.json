@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\StallSync.csproj": {}
+    "C:\\Users\\strom\\RiderProjects\\StallSync\\StallSync.csproj": {}
   },
   "projects": {
-    "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\StallSync.csproj": {
+    "C:\\Users\\strom\\RiderProjects\\StallSync\\StallSync.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\StallSync.csproj",
+        "projectUniqueName": "C:\\Users\\strom\\RiderProjects\\StallSync\\StallSync.csproj",
         "projectName": "StallSync",
-        "projectPath": "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\StallSync.csproj",
+        "projectPath": "C:\\Users\\strom\\RiderProjects\\StallSync\\StallSync.csproj",
         "packagesPath": "C:\\Users\\strom\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\obj\\",
+        "outputPath": "C:\\Users\\strom\\RiderProjects\\StallSync\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -59,6 +59,8 @@
               "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.0, )"
             }

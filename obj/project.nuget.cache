@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8tFo0gzylZI=",
+  "dgSpecHash": "F/kfWnOkzNU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\strom\\OneDrive\\Skola\\StallSync\\StallSync.csproj",
+  "projectFilePath": "C:\\Users\\strom\\RiderProjects\\StallSync\\StallSync.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\strom\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\strom\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

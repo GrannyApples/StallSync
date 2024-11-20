@@ -20,3 +20,27 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.calendar {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+  text-align: center;
+}
+
+.task {
+  background-color: #d9f9d9;
+  border: 1px solid #5cb85c;
+  margin: 5px 0;
+  padding: 5px;
+  font-size: 12px;
+  word-wrap: break-word;
+}
+
+.task strong {
+  color: #3c763d;
+}
