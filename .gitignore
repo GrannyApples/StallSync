@@ -26,9 +26,6 @@ _UpgradeReport_Files/
 bin/
 obj/
 .idea/
-obj/project.nuget.cache
-obj/StallSync.csproj.nuget.dgspec.json
-obj/project.assets.json
 TestResults/
 ###################
 # Web publish log #
