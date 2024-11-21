@@ -2,9 +2,75 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var daysOfWeek = Enum.GetValues(typeof(DayOfWeek));
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<h1>Weekly Calendar</h1>
+
+<div class="calendar">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Time</th>
+                @foreach (var day in daysOfWeek)
+                {
+                    <th>@day</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (var hour = 7; hour < 20; hour++)
+            {
+                <tr>
+                    <td>@hour:00</td>
+                    @foreach (var day in daysOfWeek)
+                    {
+                        <td>
+                            @foreach (var task in Model.TaskItems
+                           .Where(t => t.StartDate.DayOfWeek == (DayOfWeek)day &&
+                           t.StartDate.Hour <= hour &&
+                           t.EndDate.Hour > hour))
+                            {
+                                <div class="task">
+                                    <strong>@task.Title</strong><br />
+                                    <span>@task.ResponsiblePerson</span><br />
+                                    <span>@task.StartDate.ToString("HH:mm") - @task.EndDate.ToString("HH:mm")</span>
+                                </div>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+
+<h1>Uppgifter</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Beskrivning</th>
+            <th>Ansvarig</th>
+            <th>Starttid</th>
+            <th>Sluttid</th>
+            <th>Färdigställd</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model.TaskItems)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.ResponsiblePerson</td>
+                <td>@task.StartDate.ToString("HH:mm")</td>
+                <td>@task.EndDate.ToString("HH:mm")</td>
+                <td>@task.IsCompleted</td>
+            </tr>
+        }
+    </tbody>
+</table>
