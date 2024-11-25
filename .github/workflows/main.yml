@@ -1,4 +1,4 @@
-name: Demo of variables and context
+name: StallSync Build and test workflow action
 
 on: workflow_dispatch
 
