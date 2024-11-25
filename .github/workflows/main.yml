@@ -1,6 +1,11 @@
 name: StallSync Build and test workflow action
 
-on: workflow_dispatch
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
 
 jobs:
   build-project:
