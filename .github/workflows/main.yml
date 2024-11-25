@@ -10,9 +10,9 @@ jobs:
     - name: Build solution
       run: dotnet build
       
- # test-project:
-  #  runs-on: ubuntu-latest
-   # steps:
-   # - uses: actions/checkout@v4
-   # - name: Test solution
-    #  run: dotnet test
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test solution
+      run: dotnet test
