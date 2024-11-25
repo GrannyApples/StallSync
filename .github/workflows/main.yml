@@ -53,3 +53,19 @@ jobs:
     steps:
     - name: Print error
       run: echo "Error!"
+      
+  Test-good:
+    runs-on: ubuntu-latest
+    needs: [test-project]
+    if: success()
+    steps:
+    - name: Print all good
+      run: echo "All good..."
+
+  test-failure-handler:
+    runs-on: ubuntu-latest
+    needs: [test-project]
+    if: failure()    
+    steps:
+    - name: Print error
+      run: echo "Error!"
