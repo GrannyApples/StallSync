@@ -1,0 +1,76 @@
+name: StallSync Build and test workflow action
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'main'
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build solution
+      run: dotnet build
+      
+  test-project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test solution
+      run: dotnet test
+  github-context:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print GitHub context info
+      run: echo "${{toJson(github)}}"
+    - name: Print repo name
+      run: echo "${{github.repository}}"
+    - name: Print event
+      run: echo "${{github.event_name}}"
+      
+  job-and-runner-context:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print job context
+      run: echo "${{ toJSON(job) }}"
+    - name: Print runner context
+      run: echo "${{ toJSON(runner) }}"
+    - name: Print job status
+      run: echo "${{ job.status }}"
+    - name: Print runner OS
+      run: echo "${{ runner.os }}"
+
+  all-good:
+    runs-on: ubuntu-latest
+    needs: [build-project, github-context, job-and-runner-context]
+    if: success()
+    steps:
+    - name: Print all good
+      run: echo "All good..."
+
+  failure-handler:
+    runs-on: ubuntu-latest
+    needs: [build-project, github-context, job-and-runner-context]
+    if: failure()    
+    steps:
+    - name: Print error
+      run: echo "Error!"
+      
+  Test-good:
+    runs-on: ubuntu-latest
+    needs: [test-project]
+    if: success()
+    steps:
+    - name: Print all good
+      run: echo "All good..."
+
+  test-failure-handler:
+    runs-on: ubuntu-latest
+    needs: [test-project]
+    if: failure()    
+    steps:
+    - name: Print error
+      run: echo "Error!"
