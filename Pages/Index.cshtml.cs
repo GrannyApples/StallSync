@@ -70,6 +70,6 @@ public class IndexModel : PageModel
         }
 
         await LoadTasksAsync();
-        return Page();
+        return RedirectToPage();
     }
 }

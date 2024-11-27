@@ -69,7 +69,7 @@
                 <td>@task.StartDate.ToString("HH:mm")</td>
                 <td>@task.IsCompleted</td>
                 <td>
-                    <form method="post" asp-page-handler="Index" asp-route-id="@task.Id" style="display:inline;">
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
                     </form>
                 </td>
