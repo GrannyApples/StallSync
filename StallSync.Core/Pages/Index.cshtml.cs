@@ -18,7 +18,7 @@ public class IndexModel : PageModel
     public List<TaskItem> TaskItems { get; set; } = new();
 
     [BindProperty]
-    public TaskItem NewTask { get; set; }
+    public TaskItem? NewTask { get; set; }
 
     public async Task OnGetAsync()
     {

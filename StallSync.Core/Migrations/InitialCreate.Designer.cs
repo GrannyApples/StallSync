@@ -25,7 +25,7 @@ namespace StallSync.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("StallSync.Models.TaskItem", b =>
+            modelBuilder.Entity("StallSync.Core.Models.TaskItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
