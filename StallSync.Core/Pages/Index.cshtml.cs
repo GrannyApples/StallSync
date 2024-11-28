@@ -20,8 +20,14 @@ public class IndexModel : PageModel
     [BindProperty]
     public TaskItem? NewTask { get; set; }
 
-    public async Task OnGetAsync()
+    public int WeekOffSet { get; set; }
+
+    public DateTime StartOfWeek { get; private set; }
+    public DateTime EndOfWeek { get; set; }
+
+    public async Task OnGetAsync(int? weekOffSet = 0)
     {
+        WeekOffSet = weekOffSet ?? 0;
         await LoadTasksAsync();
     }
 
@@ -45,16 +51,16 @@ public class IndexModel : PageModel
         await _context.SaveChangesAsync();
 
         await LoadTasksAsync();
-        return Page();
+        return RedirectToPage(new {weekOffSet = WeekOffSet});
     }
 
     private async Task LoadTasksAsync()
     {
-        var startOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek);
-        var endOfWeek = startOfWeek.AddDays(7);
+        StartOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek + (WeekOffSet*7));
+        EndOfWeek = StartOfWeek.AddDays(7);
 
         TaskItems = await _context.TaskItems
-            .Where(t => t.StartDate >= startOfWeek && t.StartDate < endOfWeek)
+            .Where(t => t.StartDate >= StartOfWeek && t.StartDate < EndOfWeek)
             .OrderBy(t => t.StartDate)
             .ToListAsync();
     }

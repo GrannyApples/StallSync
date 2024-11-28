@@ -7,6 +7,12 @@
 
 <h1>Weekly Calendar</h1>
 
+<div class="navigation">
+    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet - 1)" class="btn btn-secondary">Previous Week</a>
+    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet + 1)" class="btn btn-secondary">Next Week</a>
+</div>
+<p>Showing tasks from <strong>@Model.StartOfWeek.ToShortDateString()</strong> to <strong>@Model.EndOfWeek.AddDays(-1).ToShortDateString()</strong></p>
+
 <div class="calendar">
     <table class="table table-bordered">
         <thead>
