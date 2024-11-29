@@ -3,15 +3,18 @@ using StallSync.Models;
 
 namespace StallSync.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options, bool seedData = true) : DbContext(options)
 {
+    private readonly bool _seedData;
     public DbSet<TaskItem> TaskItems { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Lägg till data seeding här
+        // Lägg till data seeding för projekt. (false in test)
+        if(_seedData)
+        {
         modelBuilder.Entity<TaskItem>().HasData(
             new TaskItem
             {
@@ -44,5 +47,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 IsCompleted = true
             }
         );
+        }
     }
 }

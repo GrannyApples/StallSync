@@ -20,7 +20,7 @@ namespace StallSync.Test
             // Arrange
             var taskToDelete = new TaskItem
             {
-                Id = 5,
+                Id = 1,
                 Title = "Mock Task",
                 Description = "To be deleted",
                 ResponsiblePerson = "Test User",
@@ -47,7 +47,7 @@ namespace StallSync.Test
             {
                 new TaskItem
                 {
-                    Id = 9,
+                    Id = 2,
                     Title = "Utsläpp",
                     Description = "Släpp ut hästarna i hagen",
                     ResponsiblePerson = "Amanda Olsson",
@@ -57,7 +57,7 @@ namespace StallSync.Test
                 },
                 new TaskItem
                 {
-                    Id = 12,
+                    Id = 3,
                     Title = "Intag",
                     Description = "Ta in hästarna från hagen",
                     ResponsiblePerson = "Sara Wigren",
@@ -74,9 +74,9 @@ namespace StallSync.Test
             var result = await _context.TaskItems.ToListAsync();
 
             // Assert
-            Assert.Equal(5, result.Count);
-            Assert.Equal("Utsläpp", result[3].Title);
-            Assert.Equal("Intag", result[4].Title);
+            Assert.Equal(2, result.Count);
+            Assert.Equal("Utsläpp", result[0].Title);
+            Assert.Equal("Intag", result[1].Title);
         }
 
         [Fact]

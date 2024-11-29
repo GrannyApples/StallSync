@@ -14,8 +14,8 @@ namespace StallSync.Test
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase("TestDatabase")
                 .Options;
-
-            Context = new AppDbContext(options);
+            // seedData set to false to not populate from .Core
+            Context = new AppDbContext(options, seedData: false);
 
           
             Context.Database.EnsureDeleted();
