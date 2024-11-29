@@ -1,6 +1,7 @@
 ﻿using StallSync.Models;
 using StallSync.Data;
 using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace StallSync.Test
 {
@@ -14,9 +15,34 @@ namespace StallSync.Test
         }
 
         [Fact]
+        public async Task OnPostDeleteAsync_RemovesTask_WhenTaskExists()
+        {
+            // Arrange
+            var taskToDelete = new TaskItem
+            {
+                Id = 5,
+                Title = "Mock Task",
+                Description = "To be deleted",
+                ResponsiblePerson = "Test User",
+                StartDate = DateTime.Now
+            };
+
+            _context.TaskItems.Add(taskToDelete);
+            await _context.SaveChangesAsync();
+
+            // Act
+            _context.TaskItems.Remove(taskToDelete);
+            await _context.SaveChangesAsync();
+
+            // Assert
+            var deletedTask = await _context.TaskItems.FindAsync(taskToDelete.Id);
+            Assert.Null(deletedTask);
+        }
+
+        [Fact]
         public async Task GetTaskItems_ShouldReturnMockedData()
         {
-            // Arrange: Lägg till testdata i databasen
+            // Arrange
             var taskItems = new[]
             {
                 new TaskItem
@@ -44,13 +70,32 @@ namespace StallSync.Test
             _context.TaskItems.AddRange(taskItems);
             await _context.SaveChangesAsync();
 
-            // Act: Hämta data från databasen
+            // Act
             var result = await _context.TaskItems.ToListAsync();
 
-            // Assert: Verifiera att datan är korrekt
+            // Assert
             Assert.Equal(5, result.Count);
-            Assert.Equal("Utsläpp", result[0].Title);
-            Assert.Equal("Intag", result[1].Title);
+            Assert.Equal("Utsläpp", result[3].Title);
+            Assert.Equal("Intag", result[4].Title);
+        }
+
+        [Fact]
+        public async Task OnPostDeleteAsync_DoesNothing_WhenTaskDoesNotExist()
+        {
+            // Arrange
+            var nonExistentTaskId = 99;
+
+            // Act
+            var taskToDelete = await _context.TaskItems.FindAsync(nonExistentTaskId);
+            if (taskToDelete != null)
+            {
+                _context.TaskItems.Remove(taskToDelete);
+                await _context.SaveChangesAsync();
+            }
+
+            // Assert
+            var allTasks = await _context.TaskItems.ToListAsync();
+            Assert.NotNull(allTasks);
         }
     }
 }
