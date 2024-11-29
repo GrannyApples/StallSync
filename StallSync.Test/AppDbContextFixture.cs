@@ -10,18 +10,26 @@ namespace StallSync.Test
 
         public AppDbContextFixture()
         {
-        
+            CreateContext();
+            
+            
+        }
+
+        public void CreateContext()
+        {
+
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase("TestDatabase")
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
             // seedData set to false to not populate from .Core
             Context = new AppDbContext(options, seedData: false);
-
-          
-            Context.Database.EnsureDeleted();
-            Context.Database.EnsureCreated();
+            ResetDatabase();
         }
-
+        public void ResetDatabase()
+        {
+            Context.Database.EnsureDeleted(); // Remove existing data
+            Context.Database.EnsureCreated(); // Recreate the schema
+        }
         public void Dispose()
         {
           
