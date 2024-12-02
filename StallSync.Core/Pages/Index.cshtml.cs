@@ -78,4 +78,17 @@ public class IndexModel : PageModel
         await LoadTasksAsync();
         return RedirectToPage();
     }
+
+    public async Task<IActionResult> OnPostToggleCompleteAsync(int id)
+    {
+        var task = await _context.TaskItems.FindAsync(id);
+        if (task != null)
+        {
+            task.IsCompleted = !task.IsCompleted;
+            await _context.SaveChangesAsync();
+        }
+
+        await LoadTasksAsync();
+        return RedirectToPage(new { weekOffSet = WeekOffSet });
+    }
 }
