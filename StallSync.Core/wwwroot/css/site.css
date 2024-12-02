@@ -44,3 +44,8 @@ body {
 .task strong {
   color: #3c763d;
 }
+
+.table-success {
+    background-color: #b2b0b0;
+    color: #155724;
+}

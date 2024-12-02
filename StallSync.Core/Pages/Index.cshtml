@@ -36,10 +36,14 @@
                            .Where(t => t.StartDate.DayOfWeek == (DayOfWeek)day &&
                            t.StartDate.Hour == hour))
                             {
-                                <div class="task">
+                                <div class="task @(task.IsCompleted ? "table-success" : "")">
                                     <strong>@task.Title</strong><br />
                                     <span>@task.ResponsiblePerson</span><br />
                                     <span>@task.StartDate.ToString("HH:mm")</span>
+                                    <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@task.Id" style="display:inline;">
+                                        <input type="checkbox" id="completed-@task.Id" name="IsCompleted" @(task.IsCompleted ? "checked" : "") onchange="this.form.submit()" />
+                                        <label for="completed-@task.Id">Completed</label>
+                                    </form>
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                                         <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
                                     </form>
@@ -63,17 +67,22 @@
             <th>Ansvarig</th>
             <th>Starttid</th>
             <th>Färdigställd</th>
+            <th>Åtgärder</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var task in Model.TaskItems)
         {
-            <tr>
+            <tr class="@(task.IsCompleted ? "table-success" : "")">
                 <td>@task.Title</td>
                 <td>@task.Description</td>
                 <td>@task.ResponsiblePerson</td>
                 <td>@task.StartDate.ToString("HH:mm")</td>
-                <td>@task.IsCompleted</td>
+                <td>
+                    <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@task.Id" style="display:inline;">
+                        <input type="checkbox" id="completed-@task.Id" name="IsCompleted" @(task.IsCompleted ? "checked" : "") onchange="this.form.submit()" />
+                    </form>
+                </td>
                 <td>
                     <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
