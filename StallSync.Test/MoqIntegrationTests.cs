@@ -99,5 +99,45 @@ namespace StallSync.Test
             var allTasks = await _context.TaskItems.ToListAsync();
             Assert.NotNull(allTasks);
         }
+
+        [Fact]
+        public async Task OnPostToggleCompleteAsync_TogglesCompletionStatus_WhenTaskExists()
+        {
+            // Arrange
+            var taskToToggle = new TaskItem
+            {
+                Id = 1,
+                Title = "Test Task",
+                Description = "Test Description",
+                ResponsiblePerson = "Test User",
+                StartDate = DateTime.Now,
+                IsCompleted = false
+            };
+
+            _context.TaskItems.Add(taskToToggle);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var taskBeforeToggle = await _context.TaskItems.FindAsync(taskToToggle.Id);
+            Assert.False(taskBeforeToggle!.IsCompleted); 
+
+            taskBeforeToggle.IsCompleted = !taskBeforeToggle.IsCompleted;
+            await _context.SaveChangesAsync();
+
+            var taskAfterToggle = await _context.TaskItems.FindAsync(taskToToggle.Id);
+
+            // Assert
+            Assert.True(taskAfterToggle!.IsCompleted); 
+
+            
+            taskAfterToggle.IsCompleted = !taskAfterToggle.IsCompleted;
+            await _context.SaveChangesAsync();
+
+            var taskAfterSecondToggle = await _context.TaskItems.FindAsync(taskToToggle.Id);
+
+            // Assert 
+            Assert.False(taskAfterSecondToggle!.IsCompleted); 
+        }
+
     }
 }
