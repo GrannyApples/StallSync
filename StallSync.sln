@@ -3,14 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StallSync.Core", "StallSync.Core\StallSync.Core.csproj", "{29153A32-C1AA-4B31-B1AC-84569479E5C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StallSync.Core", "StallSync.Core\StallSync.Core.csproj", "{29153A32-C1AA-4B31-B1AC-84569479E5C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StallSync.Test", "StallSync.Test\StallSync.Test.csproj", "{F348982C-F3BC-42C9-AC11-A5C39FB52CF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StallSync.Test", "StallSync.Test\StallSync.Test.csproj", "{F348982C-F3BC-42C9-AC11-A5C39FB52CF8}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -44,5 +41,8 @@ Global
 		{F348982C-F3BC-42C9-AC11-A5C39FB52CF8}.Release|x64.Build.0 = Release|Any CPU
 		{F348982C-F3BC-42C9-AC11-A5C39FB52CF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{F348982C-F3BC-42C9-AC11-A5C39FB52CF8}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
