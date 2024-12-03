@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StallSync.Data;
 using StallSync.Models;
+using StallSync.Utility;
 
 namespace StallSync.Pages;
 
@@ -102,38 +103,11 @@ public class IndexModel : PageModel
             .OrderBy(t => t.StartDate)
             .ToListAsync();
 
-        var csvContent = GenerateCsv(tasks);
+        var csvContent = CsvHelper.GenerateCsv(tasks);
 
         var fileName = $"Schedule_Snapshot{DateTime.Now:yyyyMMdd}.csv";
         return File(new System.Text.UTF8Encoding().GetBytes(csvContent), "text/csv", fileName);
     }
 
-    private string EscapeCsv(string input)
-    {
-        if (string.IsNullOrEmpty(input)) return string.Empty;
-
-
-        return $"\"{
-            input.Replace("\"","\"\"")}\"";
-            }
-
-    private string GenerateCsv(IEnumerable<TaskItem> tasks)
-    {
-        var sb = new System.Text.StringBuilder();
-        sb.AppendLine("Titel; Beskrivning; Ansvarig; Datum och tid; Klar?");
-
-        foreach (var task in tasks)
-        {
-            sb.AppendLine(
-            $"{EscapeCsv(task.Title)};" +
-            $"{EscapeCsv(task.Description)};" +
-            $"{EscapeCsv(task.ResponsiblePerson)};" +
-            $"{task.StartDate};" +
-            $"{task.IsCompleted}"
-        );
-        }
-
-        return sb.ToString();
-    }
 
 }
