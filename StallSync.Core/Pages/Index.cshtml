@@ -47,6 +47,7 @@
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                                         <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
                                     </form>
+                                    <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
                                 </div>
                             }
                         </td>
