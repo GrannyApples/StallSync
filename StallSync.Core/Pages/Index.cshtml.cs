@@ -91,4 +91,49 @@ public class IndexModel : PageModel
         await LoadTasksAsync();
         return RedirectToPage(new { weekOffSet = WeekOffSet });
     }
+
+    public async Task<IActionResult> OnPostDownloadSnapshotAsync(int weekOffset)
+    {
+        StartOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek + (weekOffset * 7));
+        EndOfWeek = StartOfWeek.AddDays(7);  // Veckans slutdatum
+
+        var tasks = await _context.TaskItems
+            .Where(t => t.StartDate >= StartOfWeek && t.StartDate < EndOfWeek)
+            .OrderBy(t => t.StartDate)
+            .ToListAsync();
+
+        var csvContent = GenerateCsv(tasks);
+
+        var fileName = $"Schedule_Snapshot{DateTime.Now:yyyyMMdd}.csv";
+        return File(new System.Text.UTF8Encoding().GetBytes(csvContent), "text/csv", fileName);
+    }
+
+    private string EscapeCsv(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return string.Empty;
+
+
+        return $"\"{
+            input.Replace("\"","\"\"")}\"";
+            }
+
+    private string GenerateCsv(IEnumerable<TaskItem> tasks)
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Titel; Beskrivning; Ansvarig; Datum och tid; Klar?");
+
+        foreach (var task in tasks)
+        {
+            sb.AppendLine(
+            $"{EscapeCsv(task.Title)};" +
+            $"{EscapeCsv(task.Description)};" +
+            $"{EscapeCsv(task.ResponsiblePerson)};" +
+            $"{task.StartDate};" +
+            $"{task.IsCompleted}"
+        );
+        }
+
+        return sb.ToString();
+    }
+
 }

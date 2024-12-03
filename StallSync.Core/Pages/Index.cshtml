@@ -13,6 +13,12 @@
 </div>
 <p>Showing tasks from <strong>@Model.StartOfWeek.ToShortDateString()</strong> to <strong>@Model.EndOfWeek.AddDays(-1).ToShortDateString()</strong></p>
 
+<form method="post" asp-page-handler="DownloadSnapshot">
+    <input type="hidden" name="weekOffset" value="@Model.WeekOffSet" />
+    <button type="submit" class="btn btn-primary">Download Snapshot</button>
+</form>
+
+
 <div class="calendar">
     <table class="table table-bordered">
         <thead>
@@ -25,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @for (var hour = 7; hour < 20; hour++)
+            @for (var hour = 6; hour < 20; hour++)
             {
                 <tr>
                     <td>@hour:00</td>
