@@ -49,3 +49,16 @@ body {
     background-color: #b2b0b0;
     color: #155724;
 }
+
+.horse-gallery {
+    margin-top: 20px;
+}
+
+    .horse-gallery .card {
+        margin: 10px;
+    }
+
+    .horse-gallery img {
+        max-height: 200px;
+        object-fit: cover;
+    }
