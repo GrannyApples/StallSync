@@ -18,6 +18,8 @@ public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string
 
     public DbSet<TaskItem> TaskItems { get; set; }
 
+    public DbSet<Horse> Horses { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

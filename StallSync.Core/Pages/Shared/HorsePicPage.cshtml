@@ -1,0 +1,47 @@
+﻿@page
+@model StallSync.Pages.Shared.HorsePicPageModel
+@{
+    ViewData["Title"] = "Horse Pictures";
+}
+
+<h1>Stallets hästar</h1>
+
+
+
+<h4>Ladda upp en ny hästbild</h4>
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="HorseName">Hästens namn</label>
+        <input type="text" id="HorseName" name="HorseName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="UploadedFile">Bildfil</label>
+        <input type="file" id="UploadedFile" name="UploadedFile" class="form-control" accept="image/*" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Ladda upp</button>
+</form>
+
+<h2>Hästar</h2>
+<div class="horse-gallery">
+    @if (Model.Horses.Count == 0)
+    {
+        <p>Inga hästar har laddats upp ännu.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var horse in Model.Horses)
+            {
+                <div class="col-md-3 text-center">
+                    <div class="card">
+                        <img src="@horse.ImagePath" class="card-img-top" alt="@horse.Name" />
+                        <div class="card-body">
+                            <h5 class="card-title">@horse.Name</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    
+</div>
