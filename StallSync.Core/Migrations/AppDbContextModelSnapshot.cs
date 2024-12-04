@@ -50,7 +50,6 @@ namespace StallSync.Migrations
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-            modelBuilder.Entity("StallSync.Models.Horse", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +57,6 @@ namespace StallSync.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
@@ -220,7 +218,16 @@ namespace StallSync.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-=======
+                });
+
+            modelBuilder.Entity("StallSync.Models.Horse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -233,7 +240,6 @@ namespace StallSync.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Horses");
->>>>>>> main
                 });
 
             modelBuilder.Entity("StallSync.Models.TaskItem", b =>
