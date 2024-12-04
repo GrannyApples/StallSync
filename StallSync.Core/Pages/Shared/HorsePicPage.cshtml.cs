@@ -31,13 +31,28 @@ namespace StallSync.Pages.Shared
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid || UploadedFile == null || string.IsNullOrWhiteSpace(HorseName))
+            if (!ModelState.IsValid)  
             {
+                return Page(); 
+            }
+
+            if (string.IsNullOrWhiteSpace(HorseName) || UploadedFile == null)
+            {
+                if (string.IsNullOrWhiteSpace(HorseName))
+                {
+                    ModelState.AddModelError("HorseName", "Hästnamn är obligatoriskt.");
+                }
+
+                if (UploadedFile == null)
+                {
+                    ModelState.AddModelError("UploadedFile", "En bild måste laddas upp.");
+                }
+
                 return Page();
             }
 
-          
             var filePath = Path.Combine(_uploadFolderPath, UploadedFile.FileName);
+
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await UploadedFile.CopyToAsync(stream);
