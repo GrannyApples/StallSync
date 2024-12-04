@@ -8,6 +8,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, bool seedData 
     private readonly bool _seedData;
     public DbSet<TaskItem> TaskItems { get; set; }
 
+    public DbSet<Horse> Horses { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
