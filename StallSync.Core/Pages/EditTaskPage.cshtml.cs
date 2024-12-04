@@ -43,7 +43,6 @@ namespace StallSync.Pages
             task.Description = Task.Description;
             task.ResponsiblePerson = Task.ResponsiblePerson;
             task.StartDate = Task.StartDate;
-            task.EndDate = task.StartDate.AddHours(1);
             task.IsCompleted = Task.IsCompleted;
 
             await _context.SaveChangesAsync();

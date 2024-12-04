@@ -53,8 +53,7 @@ namespace StallSync.Test
                     Title = "Utsläpp",
                     Description = "Släpp ut hästarna i hagen",
                     ResponsiblePerson = "Amanda Olsson",
-                    StartDate = new DateTime(2024, 11, 21, 7, 0, 0),
-                    EndDate = new DateTime(2024, 11, 21, 8, 0, 0),
+                    StartDate = new DateTime(2024, 11, 21, 7, 0, 0),                   
                     IsCompleted = false
                 },
                 new TaskItem
@@ -64,7 +63,6 @@ namespace StallSync.Test
                     Description = "Ta in hästarna från hagen",
                     ResponsiblePerson = "Sara Wigren",
                     StartDate = new DateTime(2024, 11, 21, 17, 0, 0),
-                    EndDate = new DateTime(2024, 11, 21, 18, 0, 0),
                     IsCompleted = false
                 }
             };

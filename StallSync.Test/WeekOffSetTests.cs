@@ -28,7 +28,6 @@ public class WeekOffSetTests : IClassFixture<AppDbContextFixture>
             Id = 1,
             Title = "Current Week Task",
             StartDate = startOfCurrentWeek.AddHours(10),
-            EndDate = startOfCurrentWeek.AddHours(12),
             IsCompleted = false
         },
         new TaskItem
@@ -36,7 +35,6 @@ public class WeekOffSetTests : IClassFixture<AppDbContextFixture>
             Id = 2,
             Title = "Next Week Task",
             StartDate = startOfCurrentWeek.AddDays(7).AddHours(10),
-            EndDate = startOfCurrentWeek.AddDays(7).AddHours(12),
             IsCompleted = false
         },
         new TaskItem
@@ -44,7 +42,6 @@ public class WeekOffSetTests : IClassFixture<AppDbContextFixture>
             Id = 3,
             Title = "Previous Week Task",
             StartDate = startOfCurrentWeek.AddDays(-7).AddHours(10),
-            EndDate = startOfCurrentWeek.AddDays(-7).AddHours(12),
             IsCompleted = false
         }
     };
