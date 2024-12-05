@@ -15,11 +15,11 @@ public class IndexModel : PageModel
     {
         _context = context;
     }
-
+    
     public List<TaskItem> TaskItems { get; set; } = new();
 
     [BindProperty]
-    public TaskItem? NewTask { get; set; }
+    public TaskItem NewTask { get; set; }
 
     public int WeekOffSet { get; set; }
 
@@ -32,8 +32,11 @@ public class IndexModel : PageModel
         await LoadTasksAsync();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+   
+    
+    public async Task<IActionResult> OnPostAsync(DateTime StartDate)
     {
+        
         if (NewTask == null)
         {
    
@@ -108,6 +111,4 @@ public class IndexModel : PageModel
         var fileName = $"Schedule_Snapshot{DateTime.Now:yyyyMMdd}.csv";
         return File(new System.Text.UTF8Encoding().GetBytes(csvContent), "text/csv", fileName);
     }
-
-
 }

@@ -123,8 +123,9 @@
         <input type="text" id="ResponsiblePerson" name="NewTask.ResponsiblePerson" class="form-control" />
     </div>
     <div class="form-group">
-        <label for="StartDate">Starttid</label>
-        <input type="datetime-local" id="StartDate" name="NewTask.StartDate" class="form-control" required />
+        <label asp-for="NewTask.StartDate">Starttid</label>
+        <input asp-for="NewTask.StartDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"class="form-control" required />
+        <span asp-validation-for="NewTask.StartDate" class="text-danger"></span>
     </div>
 
     <button type="submit" class="btn btn-primary">Lägg till</button>
