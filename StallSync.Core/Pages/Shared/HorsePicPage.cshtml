@@ -37,6 +37,9 @@
                         <img src="@horse.ImagePath" class="card-img-top" alt="@horse.Name" />
                         <div class="card-body">
                             <h5 class="card-title">@horse.Name</h5>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@horse.Id">
+                                <button type="submit" class="btn btn-danger">Ta bort</button>
+                            </form>
                         </div>
                     </div>
                 </div>
