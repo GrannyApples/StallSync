@@ -9,7 +9,7 @@ public class TaskItem
     public string ResponsiblePerson { get; set; } = string.Empty;
 
     [Required]
-    [CustomDateTimeRange(ErrorMessage = "The StartDate must be after 06:00 and before 20:00.")]
+    [CustomDateTimeRange(ErrorMessage = "The StartDate must be between 06:00 and 19:59.")]
     public DateTime StartDate { get; set; } = DateTime.Now;
     public bool IsCompleted { get; set; } = false;
     public class CustomDateTimeRangeAttribute : ValidationAttribute
@@ -23,7 +23,7 @@ public class TaskItem
 
             // Check time range
             var timeOnly = startDate.TimeOfDay;
-            if (timeOnly < TimeSpan.FromHours(6) || timeOnly > TimeSpan.FromHours(20))
+            if (timeOnly < TimeSpan.FromHours(6) || timeOnly > TimeSpan.FromHours(19.99))
             {
                 return new ValidationResult(ErrorMessage);
             }
