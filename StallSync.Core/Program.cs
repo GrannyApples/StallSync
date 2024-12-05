@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StallSync.Data;
-using StallSync.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using StallSync.Utility;
 
