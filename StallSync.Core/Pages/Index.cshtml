@@ -2,32 +2,36 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var daysOfWeek = Enum.GetValues(typeof(DayOfWeek));
+
+    // Skapa en lista med svenska veckodagar och börja på måndag
+    var daysOfWeek = new[] { "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag" };
 }
 
-<a asp-page="/Shared/HorsePicPage" class="btn btn-primary btn-sm">Hästarna</a>
-
-<h1>Weekly Calendar</h1>
-
-<div class="navigation">
-    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet - 1)" class="btn btn-secondary">Previous Week</a>
-    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet + 1)" class="btn btn-secondary">Next Week</a>
+<div class="d-flex justify-content-between align-items-center">
+    <h1>Veckoschema</h1>
+    <a asp-page="/Shared/HorsePicPage" class="btn btn-pastel btn-sm">Stallets hästar</a>
 </div>
-<p>Showing tasks from <strong>@Model.StartOfWeek.ToShortDateString()</strong> to <strong>@Model.EndOfWeek.AddDays(-1).ToShortDateString()</strong></p>
 
-<form method="post" asp-page-handler="DownloadSnapshot">
-    <input type="hidden" name="weekOffset" value="@Model.WeekOffSet" />
-    <button type="submit" class="btn btn-primary">Download Snapshot</button>
-</form>
+<p>Visar schema för: <strong>@Model.StartOfWeek.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</strong> till <strong>@Model.EndOfWeek.AddDays(-1).ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</strong></p>
+
+<div>
+    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet - 1)" class="btn btn-pastel btn-smaller">Föregående vecka</a>
+    <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet + 1)" class="btn btn-pastel btn-smaller">Nästa vecka</a>
+</div>
 
 <div class="calendar">
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Time</th>
+                <th>Tid</th>
                 @foreach (var day in daysOfWeek)
                 {
-                    <th>@day</th>
+                    var dayIndex = Array.IndexOf(daysOfWeek, day);
+                    var dayOfWeek = (DayOfWeek)dayIndex;
+
+                    var dateOfDay = Model.StartOfWeek.AddDays(dayIndex - (int)Model.StartOfWeek.DayOfWeek);
+
+                    <th>@Model.GetSwedishDayName(dayOfWeek) @dateOfDay.ToString("dd/MM", System.Globalization.CultureInfo.InvariantCulture)</th>
                 }
             </tr>
         </thead>
@@ -40,7 +44,7 @@
                     {
                         <td>
                             @foreach (var task in Model.TaskItems
-                           .Where(t => t.StartDate.DayOfWeek == (DayOfWeek)day &&
+                           .Where(t => t.StartDate.DayOfWeek == (DayOfWeek)Array.IndexOf(daysOfWeek, day) &&
                            t.StartDate.Hour == hour))
                             {
                                 <div class="task @(task.IsCompleted ? "table-success" : "")">
@@ -49,14 +53,14 @@
                                     <span>@task.StartDate.ToString("HH:mm")</span>
                                     <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@task.Id" style="display:inline;">
                                         <input type="checkbox" id="completed-@task.Id" name="IsCompleted" @(task.IsCompleted ? "checked" : "") onchange="this.form.submit()" />
-                                        <label for="completed-@task.Id">Completed</label>
+                                        <label for="completed-@task.Id">Utförd</label>
                                     </form>
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                                             <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
                                         </form>
-                                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
+                                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-edit btn-sm">Redigera</a>
                                     }
                                 </div>
                             }
@@ -68,6 +72,17 @@
     </table>
 </div>
 
+<div class="d-flex justify-content-between align-items-center">
+
+    <form method="post" asp-page-handler="DownloadSnapshot">
+        <input type="hidden" name="weekOffset" value="@Model.WeekOffSet" />
+        <button type="submit" class="btn btn-pastel">Ladda ner veckans schema</button>
+    </form>
+</div>
+
+<br />
+<br />
+
 <h1>Uppgifter</h1>
 
 <table class="table">
@@ -77,8 +92,12 @@
             <th>Beskrivning</th>
             <th>Ansvarig</th>
             <th>Starttid</th>
-            <th>Färdigställd</th>
-            <th>Åtgärder</th>
+            <th>Utförd</th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th>Åtgärder</th>
+            }
+
         </tr>
     </thead>
     <tbody>
@@ -100,18 +119,17 @@
                         <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
                             <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
                         </form>
-                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
+                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-edit btn-sm">Redigera</a>
                     }
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
+<br />
+<br />
 @if (User.Identity.IsAuthenticated)
 {
-
     <h2>Lägg till ny uppgift</h2>
     <form method="post">
         <div class="form-group">
@@ -132,6 +150,6 @@
             <span asp-validation-for="NewTask.StartDate" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Lägg till</button>
+        <button type="submit" class="btn btn-pastel">Lägg till</button>
     </form>
 }
