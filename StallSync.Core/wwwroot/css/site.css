@@ -86,7 +86,6 @@ body {
     }
 }
 
-
 .navbar-brand {
     font-size: 2rem;
     font-weight: bold;
@@ -103,14 +102,12 @@ body {
         transform: scale(1.05); 
     }
 
-/* Snurra ikonen när man hovrar på stallsync-btn */
 a.stallsync-btn:hover i {
-    animation: spin 1s linear; /* Snurra ikonen på 1 sekund */
+    animation: spin 1s linear;
 }
 
-/* Snurra ikonen åt andra hållet när hover tas bort */
 a.stallsync-btn i {
-    animation: spinReverse 1s linear forwards; /* Snurra åt andra hållet när hover tas bort */
+    animation: spinReverse 1s linear forwards;
 }
 
 a.stallsync-btn:hover {
@@ -158,19 +155,14 @@ header {
 
 
 .btn-edit {
-    background-color: #9b59b6; /* Lila färg */
+    background-color: #9b59b6; 
     color: white;
 }
     .btn-edit:hover {
-        background-color: #8e44ad; /* Mörkare lila vid hover */
-        border-color: #7d3c96; /* Mörkare kantfärg vid hover */
-        color: white; /* Vit text vid hover */
+        background-color: #8e44ad;
+        border-color: #7d3c96; 
+        color: white; 
     }
-
-
-
-
-
 
 
 .calendar table {
@@ -203,8 +195,6 @@ header {
     background-color: #fce4ec;
     font-family: 'Lora', sans-serif;
 }
-
-
 
 
 .calendar .task.table-success {

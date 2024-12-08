@@ -9,7 +9,6 @@ namespace StallSync.Pages
     {
         private readonly AppDbContext _context = context;
 
-
         [BindProperty]
         public TaskItem Task { get; set; } = new();
 
@@ -48,8 +47,6 @@ namespace StallSync.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
-
         }
-
     }
 }

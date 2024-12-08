@@ -10,19 +10,21 @@
         <label for="Title">Titel</label>
         <input type="text" id="Title" name="Task.Title" class="form-control" value="@Model.Task.Title" required />
     </div>
+
     <div class="form-group">
         <label for="Description">Beskrivning</label>
         <input type="text" id="Description" name="Task.Description" class="form-control" value="@Model.Task.Description" />
     </div>
+
     <div class="form-group">
         <label for="ResponsiblePerson">Ansvarig</label>
         <input type="text" id="ResponsiblePerson" name="Task.ResponsiblePerson" class="form-control" value="@Model.Task.ResponsiblePerson" />
     </div>
+
     <div class="form-group">
         <label for="StartDate">Starttid</label>
         <input type="datetime-local" id="StartDate" name="Task.StartDate" class="form-control" value="@Model.Task.StartDate.ToString("yyyy-MM-ddTHH:mm")" required />
     </div>
-
 
     <button type="submit" class="btn btn-pastel">Spara ändringar</button>
     <a asp-page="/Index" class="btn btn-danger">Avbryt</a>
