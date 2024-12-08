@@ -7,10 +7,7 @@
 
 <a asp-page="/Shared/HorsePicPage" class="btn btn-primary btn-sm">Hästarna</a>
 
-
 <h1>Weekly Calendar</h1>
-
-
 
 <div class="navigation">
     <a asp-page="./Index" asp-route-weekOffset="@(Model.WeekOffSet - 1)" class="btn btn-secondary">Previous Week</a>
@@ -22,9 +19,6 @@
     <input type="hidden" name="weekOffset" value="@Model.WeekOffSet" />
     <button type="submit" class="btn btn-primary">Download Snapshot</button>
 </form>
-
-
-
 
 <div class="calendar">
     <table class="table table-bordered">
@@ -57,10 +51,13 @@
                                         <input type="checkbox" id="completed-@task.Id" name="IsCompleted" @(task.IsCompleted ? "checked" : "") onchange="this.form.submit()" />
                                         <label for="completed-@task.Id">Completed</label>
                                     </form>
-                                    <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
-                                        <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
-                                    </form>
-                                    <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
+                                        </form>
+                                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
+                                    }
                                 </div>
                             }
                         </td>
@@ -98,35 +95,43 @@
                     </form>
                 </td>
                 <td>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
-                        <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
-                    </form>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@task.Id" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Ta bort</button>
+                        </form>
+                        <a asp-page="./EditTaskPage" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Redigera</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<h2>Lägg till ny uppgift</h2>
 
-<form method="post">
-    <div class="form-group">
-        <label for="Title">Titel</label>
-        <input type="text" id="Title" name="NewTask.Title" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="Description">Beskrivning</label>
-        <input type="text" id="Description" name="NewTask.Description" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="ResponsiblePerson">Ansvarig</label>
-        <input type="text" id="ResponsiblePerson" name="NewTask.ResponsiblePerson" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="NewTask.StartDate">Starttid</label>
-        <input asp-for="NewTask.StartDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"class="form-control" required />
-        <span asp-validation-for="NewTask.StartDate" class="text-danger"></span>
-    </div>
+@if (User.Identity.IsAuthenticated)
+{
 
-    <button type="submit" class="btn btn-primary">Lägg till</button>
-</form>
+    <h2>Lägg till ny uppgift</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="Title">Titel</label>
+            <input type="text" id="Title" name="NewTask.Title" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="Description">Beskrivning</label>
+            <input type="text" id="Description" name="NewTask.Description" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="ResponsiblePerson">Ansvarig</label>
+            <input type="text" id="ResponsiblePerson" name="NewTask.ResponsiblePerson" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NewTask.StartDate">Starttid</label>
+            <input asp-for="NewTask.StartDate" type="datetime-local" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" class="form-control" required />
+            <span asp-validation-for="NewTask.StartDate" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lägg till</button>
+    </form>
+}
