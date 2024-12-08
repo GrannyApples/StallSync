@@ -18,18 +18,22 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #fef6f6;
+    font-family: 'Lora', sans-serif;
 }
 
 .calendar {
-  width: 100%;
-  overflow-x: auto;
+    width: 100%;
+    overflow-x: auto;
+    font-family: 'Lora', sans-serif;
 }
 
 .table {
-  table-layout: fixed;
-  width: 100%;
-  text-align: center;
+    table-layout: fixed;
+    width: 100%;
+    text-align: center;
+    font-family: 'Lora', sans-serif;
 }
 
 .task {
@@ -62,3 +66,164 @@ body {
         max-height: 200px;
         object-fit: cover;
     }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinReverse {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #f8a5c2, #d4a5f9); 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .navbar-brand:hover {
+        background: linear-gradient(45deg, #d4a5f9, #f8a5c2); 
+        transform: scale(1.05); 
+    }
+
+/* Snurra ikonen när man hovrar på stallsync-btn */
+a.stallsync-btn:hover i {
+    animation: spin 1s linear; /* Snurra ikonen på 1 sekund */
+}
+
+/* Snurra ikonen åt andra hållet när hover tas bort */
+a.stallsync-btn i {
+    animation: spinReverse 1s linear forwards; /* Snurra åt andra hållet när hover tas bort */
+}
+
+a.stallsync-btn:hover {
+    background: linear-gradient(45deg, #d4a5f9, #f8a5c2); 
+    transform: scale(1.05); 
+}
+
+header {
+    background-color: #fef6f6;
+}
+
+.navbar {
+    background-color: #fef6f6 !important;
+    /
+}
+
+.navbar-nav .nav-link {
+    white-space: nowrap;
+}
+
+
+.btn-pastel {
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #f8a5c2, #d4a5f9); 
+    color: black;
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; 
+    border: none;
+}
+
+    .btn-pastel:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(232, 232, 232, 0.8);
+    }
+
+    .btn-smaller {
+    font-size: 0.875rem; 
+    padding: 5px 15px; 
+    border-radius: 20px; 
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1); 
+    }
+
+
+.btn-edit {
+    background-color: #9b59b6; /* Lila färg */
+    color: white;
+}
+    .btn-edit:hover {
+        background-color: #8e44ad; /* Mörkare lila vid hover */
+        border-color: #7d3c96; /* Mörkare kantfärg vid hover */
+        color: white; /* Vit text vid hover */
+    }
+
+
+
+
+
+
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    border: 3px solid #333;
+    border-radius: 8px;
+    font-family: 'Lora', sans-serif;
+}
+
+
+.calendar th, .calendar td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-family: 'Lora', sans-serif;
+}
+
+.calendar th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    font-family: 'Lora', sans-serif;
+}
+
+.calendar td {
+    vertical-align: top;
+    min-height: 100px;
+    background-color: #fce4ec;
+    font-family: 'Lora', sans-serif;
+}
+
+
+
+
+.calendar .task.table-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.calendar .task {
+    margin-bottom: 5px;
+}
+
+
+button.btn {
+    margin-top: 5px;
+}
+
+.calendar input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 5px;
+}

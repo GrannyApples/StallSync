@@ -33,7 +33,6 @@ public class IndexModel : PageModel
     }
 
    
-    
     public async Task<IActionResult> OnPostAsync(DateTime StartDate)
     {
         
@@ -68,6 +67,7 @@ public class IndexModel : PageModel
             .OrderBy(t => t.StartDate)
             .ToListAsync();
     }
+
 
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
@@ -111,4 +111,20 @@ public class IndexModel : PageModel
         var fileName = $"Schedule_Snapshot{DateTime.Now:yyyyMMdd}.csv";
         return File(new System.Text.UTF8Encoding().GetBytes(csvContent), "text/csv", fileName);
     }
+
+    public string GetSwedishDayName(DayOfWeek day)
+    {
+        return day switch
+        {
+            DayOfWeek.Monday => "Måndag",
+            DayOfWeek.Tuesday => "Tisdag",
+            DayOfWeek.Wednesday => "Onsdag",
+            DayOfWeek.Thursday => "Torsdag",
+            DayOfWeek.Friday => "Fredag",
+            DayOfWeek.Saturday => "Lördag",
+            DayOfWeek.Sunday => "Söndag",
+            _ => day.ToString()
+        };
+    }
+
 }

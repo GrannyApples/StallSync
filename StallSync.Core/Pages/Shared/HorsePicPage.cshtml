@@ -6,7 +6,6 @@
 
 <h1>Stallets hästar</h1>
 
-<h2>Hästar</h2>
 <div class="horse-gallery">
     @if (Model.Horses.Count == 0)
     {
@@ -35,7 +34,8 @@
         </div>
     }
 </div>
-
+<br />
+<br />
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -49,7 +49,7 @@
             <label for="UploadedFile">Bildfil</label>
             <input type="file" id="UploadedFile" name="UploadedFile" class="form-control" accept="image/*" required />
         </div>
-        <button type="submit" class="btn btn-primary">Ladda upp</button>
+        <button type="submit" class="btn btn-pastel">Ladda upp</button>
     </form>
 }
 
