@@ -32,7 +32,6 @@ public class IndexModel : PageModel
         await LoadTasksAsync();
     }
 
-   
     public async Task<IActionResult> OnPostAsync(DateTime StartDate)
     {
         
@@ -68,7 +67,6 @@ public class IndexModel : PageModel
             .ToListAsync();
     }
 
-
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
 
@@ -83,6 +81,7 @@ public class IndexModel : PageModel
         return RedirectToPage();
     }
 
+
     public async Task<IActionResult> OnPostToggleCompleteAsync(int id)
     {
         var task = await _context.TaskItems.FindAsync(id);
@@ -96,10 +95,11 @@ public class IndexModel : PageModel
         return RedirectToPage(new { weekOffSet = WeekOffSet });
     }
 
+
     public async Task<IActionResult> OnPostDownloadSnapshotAsync(int weekOffset)
     {
         StartOfWeek = DateTime.Now.Date.AddDays(-(int)DateTime.Now.DayOfWeek + (weekOffset * 7));
-        EndOfWeek = StartOfWeek.AddDays(7);  // Veckans slutdatum
+        EndOfWeek = StartOfWeek.AddDays(7);
 
         var tasks = await _context.TaskItems
             .Where(t => t.StartDate >= StartOfWeek && t.StartDate < EndOfWeek)
@@ -111,6 +111,7 @@ public class IndexModel : PageModel
         var fileName = $"Schedule_Snapshot{DateTime.Now:yyyyMMdd}.csv";
         return File(new System.Text.UTF8Encoding().GetBytes(csvContent), "text/csv", fileName);
     }
+
 
     public string GetSwedishDayName(DayOfWeek day)
     {
@@ -126,5 +127,4 @@ public class IndexModel : PageModel
             _ => day.ToString()
         };
     }
-
 }

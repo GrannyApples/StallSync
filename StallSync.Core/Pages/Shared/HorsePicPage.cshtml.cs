@@ -51,13 +51,11 @@ namespace StallSync.Pages.Shared
 
                 return Page();
             }
-
             
             if (!Directory.Exists(_uploadFolderPath))
             {
                 Directory.CreateDirectory(_uploadFolderPath);
             }
-
          
             var uniqueFileName = $"{Guid.NewGuid()}_{UploadedFile.FileName}";
             var filePath = Path.Combine(_uploadFolderPath, uniqueFileName);
@@ -87,14 +85,12 @@ namespace StallSync.Pages.Shared
                 return NotFound();
             }
 
-       
             var filePath = Path.Combine(_uploadFolderPath, Path.GetFileName(horse.ImagePath));
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
             }
 
-     
             _context.Horses.Remove(horse);
             await _context.SaveChangesAsync();
 

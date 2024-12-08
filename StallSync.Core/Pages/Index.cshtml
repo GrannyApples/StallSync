@@ -2,8 +2,6 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-
-    // Skapa en lista med svenska veckodagar och börja på måndag
     var daysOfWeek = new[] { "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag" };
 }
 
@@ -35,6 +33,7 @@
                 }
             </tr>
         </thead>
+
         <tbody>
             @for (var hour = 6; hour < 20; hour++)
             {
@@ -100,6 +99,7 @@
 
         </tr>
     </thead>
+
     <tbody>
         @foreach (var task in Model.TaskItems)
         {
@@ -126,8 +126,10 @@
         }
     </tbody>
 </table>
+
 <br />
 <br />
+
 @if (User.Identity.IsAuthenticated)
 {
     <h2>Lägg till ny uppgift</h2>
