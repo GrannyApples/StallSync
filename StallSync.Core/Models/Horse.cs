@@ -9,9 +9,9 @@ namespace StallSync.Models
 
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
     }
 }
