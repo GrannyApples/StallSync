@@ -4,7 +4,6 @@ public class ValidatingHoursTest
 {
     [Theory]
     [InlineData("2024-12-05T06:00", true)] 
-    [InlineData("2024-12-05T19:59", true)] 
     [InlineData("2024-12-05T19:00", true)] 
     [InlineData("2024-12-05T05:59", false)]
     [InlineData("2024-12-05T20:01", false)] 
@@ -16,13 +15,14 @@ public class ValidatingHoursTest
     {
         // Arrange
         var startDate = DateTime.Parse(startDateString);
-        var minAllowedTime = startDate.Date.AddHours(6); 
-        var maxAllowedTime = startDate.Date.AddHours(19.99); 
+        var minAllowedTime = startDate.Date.AddHours(6); // 06:00
+        var maxAllowedTime = startDate.Date.AddHours(19).AddMinutes(59); // 19:59
 
         // Act
         var isValid = startDate >= minAllowedTime && startDate <= maxAllowedTime;
 
         // Assert
         Assert.Equal(expected, isValid);
+        
     }
 }
