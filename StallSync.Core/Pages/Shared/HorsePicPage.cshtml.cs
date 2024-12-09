@@ -15,13 +15,13 @@ namespace StallSync.Pages.Shared
             _context = context;
         }
 
-        public List<Horse> Horses { get; set; }
+        public List<Horse>? Horses { get; set; }
 
         [BindProperty]
-        public string HorseName { get; set; }
+        public string? HorseName { get; set; }
 
         [BindProperty]
-        public IFormFile UploadedFile { get; set; }
+        public IFormFile? UploadedFile { get; set; }
 
         private readonly string _uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
 
