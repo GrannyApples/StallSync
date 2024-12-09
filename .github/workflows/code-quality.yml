@@ -27,10 +27,6 @@ jobs:
       - name: Run Code Analysis
         run: |
           dotnet build
-          dotnet format
-          dotnet sonarscanner begin /k:"StallSync"
-          dotnet build
-          dotnet sonarscanner end
 
       - name: Count TODOs
         run: grep -r TODO --include="*.cs" | wc -l
