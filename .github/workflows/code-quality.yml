@@ -27,7 +27,7 @@ jobs:
       - name: Run Code Analysis
         run: |
           dotnet build
-          dotnet format --check 
+          dotnet format --check StallSync.sln
           dotnet sonarscanner begin /k:"StallSync"
           dotnet build
           dotnet sonarscanner end
