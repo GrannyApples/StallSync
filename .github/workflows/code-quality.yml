@@ -25,11 +25,14 @@ jobs:
         run: dotnet restore
 
       - name: Run Code Analysis
+        run: dotnet build
+
+      - name: Count and List TODOs
         run: |
-          dotnet build
+          echo "Found TODOs:"
+          grep -rn TODO --include="*.cs"
 
-      - name: Count TODOs
-        run: grep -rn TODO --include="*.cs" | wc -l
-
-      - name: Identify Magic Strings
-        run: grep -rn --include="*.cs" -E '\"[^\"]*\"' | grep -v "TODO" | wc -l
+      - name: Identify and List Magic Strings
+        run: |
+          echo "Magic Strings Found:"
+          grep -rn --include="*.cs" -E '\"[^\"]*\"' | grep -v "TODO"
