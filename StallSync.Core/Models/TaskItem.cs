@@ -21,14 +21,18 @@ public class TaskItem
                 return new ValidationResult("Invalid StartDate format.");
             }
 
+             // Define valid start time and end time
+            var minAllowedTime = TimeSpan.FromHours(6); // 06:00
+            var maxAllowedTime = TimeSpan.FromHours(19).Add(TimeSpan.FromMinutes(59)); // 19:59
+
             // Check time range
             var timeOnly = startDate.TimeOfDay;
-            if (timeOnly < TimeSpan.FromHours(6) || timeOnly > TimeSpan.FromHours(19.99))
+            if (timeOnly < minAllowedTime || timeOnly > maxAllowedTime)
             {
                 return new ValidationResult(ErrorMessage);
             }
 
-            // Optional: Check if the date is in the future
+            
             if (startDate < DateTime.Now.AddHours(-1))
             {
                 return new ValidationResult("StartDate must be in the future.");
