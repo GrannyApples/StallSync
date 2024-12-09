@@ -35,4 +35,4 @@ jobs:
       - name: Identify and List Magic Strings
         run: |
           echo "Magic Strings Found:"
-          grep -rn --include="*.cs" --exclude-dir={Areas,Migrations,obj,bin} -E '\"[^\"]*\"' | grep -v "TODO"
+          grep -rn --include="*.cs" --exclude-dir={Areas,Migrations,obj,bin} -E '\[^\"]*\' | grep -v "TODO"
