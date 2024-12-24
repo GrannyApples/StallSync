@@ -1,4 +1,7 @@
 ﻿namespace StallSync.Test;
+
+using StallSync.Models;
+using System.ComponentModel.DataAnnotations;
 using Xunit;
 public class ValidatingHoursTest
 {
@@ -15,11 +18,12 @@ public class ValidatingHoursTest
     {
         // Arrange
         var startDate = DateTime.Parse(startDateString);
-        var minAllowedTime = startDate.Date.AddHours(6); // 06:00
-        var maxAllowedTime = startDate.Date.AddHours(19).AddMinutes(59); // 19:59
+        var sut = new TaskItem { StartDate = startDate };
 
         // Act
-        var isValid = startDate >= minAllowedTime && startDate <= maxAllowedTime;
+        var isValid =
+            sut.StartDate.TimeOfDay >= TimeSpan.FromHours(6) && 
+            sut.StartDate.TimeOfDay <= TimeSpan.FromHours(19).Add(TimeSpan.FromMinutes(59));
 
         // Assert
         Assert.Equal(expected, isValid);
